@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "849215911918",
+    "project_id": "messenger-b4392",
+    "storage_bucket": "messenger-b4392.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:849215911918:android:994bf02efb6750cb2640ff",
+        "android_client_info": {
+          "package_name": "com.pashssh.messenger"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "849215911918-qt709njrfes5rs399nf9t9hu9ocsud75.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.pashssh.messenger",
+            "certificate_hash": "40486325f9f6592ea64945203e455d54c2707364"
+          }
+        },
+        {
+          "client_id": "849215911918-spsdv6m54lhves4r7292649nl5b2m99v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBOXd369DDyN-szs_HDqikTD6q8vwN4rlE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "849215911918-spsdv6m54lhves4r7292649nl5b2m99v.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
