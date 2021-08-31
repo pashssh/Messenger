@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
+    app:startDestination="@id/mainFragment">
+
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.pashssh.messenger.MainFragment"
+        android:label="fragment_main"
+        tools:layout="@layout/fragment_main" >
+        <action
+            android:id="@+id/action_mainFragment_to_chatsFragment"
+            app:destination="@id/chatsFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_registrationActivity"
+            app:destination="@id/registrationActivity" />
+    </fragment>
+    <fragment
+        android:id="@+id/chatsFragment"
+        android:name="com.pashssh.messenger.ChatsFragment"
+        android:label="chats_fragment"
+        tools:layout="@layout/chats_fragment" />
+    <activity
+        android:id="@+id/registrationActivity"
+        android:name="com.pashssh.messenger.RegistrationActivity"
+        android:label="activity_registration"
+        tools:layout="@layout/activity_registration" />
+</navigation>

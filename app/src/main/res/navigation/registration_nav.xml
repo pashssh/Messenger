@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/registration_nav"
+    app:startDestination="@id/registrationFragment">
+    <fragment
+        android:id="@+id/registrationFragment"
+        android:name="com.pashssh.messenger.RegistrationFragment"
+        android:label="RegistrationFragment" >
+        <action
+            android:id="@+id/action_registrationFragmen_to_enterCodeFragment"
+            app:destination="@id/enterCodeFragment" />
+    </fragment>
+    <activity
+        android:id="@+id/mainActivity"
+        android:name="com.pashssh.messenger.MainActivity"
+        android:label="activity_main"
+        tools:layout="@layout/activity_main" />
+    <fragment
+        android:id="@+id/enterCodeFragment"
+        android:name="com.pashssh.messenger.EnterCodeFragment"
+        android:label="fragment_enter_code"
+        tools:layout="@layout/fragment_enter_code" >
+        <argument
+            android:name="phoneNumber"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="id"
+            app:argType="string"
+            app:nullable="true" />
+        <action
+            android:id="@+id/action_enterCodeFragment_to_mainActivity"
+            app:destination="@id/mainActivity" />
+    </fragment>
+</navigation>
