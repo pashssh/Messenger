@@ -12,10 +12,12 @@
         tools:layout="@layout/fragment_main" >
         <action
             android:id="@+id/action_mainFragment_to_chatsFragment"
-            app:destination="@id/chatsFragment" />
+            app:destination="@id/chatsFragment"
+            app:launchSingleTop="false" />
         <action
             android:id="@+id/action_mainFragment_to_registrationActivity"
-            app:destination="@id/registrationActivity" />
+            app:destination="@id/registrationActivity"
+             />
     </fragment>
     <fragment
         android:id="@+id/chatsFragment"
@@ -23,12 +25,13 @@
         android:label="chats_fragment"
         tools:layout="@layout/chats_fragment" >
         <action
-            android:id="@+id/action_chatsFragment_to_registrationActivity"
-            app:destination="@id/registrationActivity" />
+            android:id="@+id/action_chatsFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
     </fragment>
     <activity
         android:id="@+id/registrationActivity"
         android:name="com.pashssh.messenger.RegistrationActivity"
         android:label="activity_registration"
+
         tools:layout="@layout/activity_registration" />
 </navigation>

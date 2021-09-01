@@ -27,7 +27,7 @@ class ChatsFragment : Fragment() {
 
         binding.logout.setOnClickListener {
             AUTH.signOut()
-            this.findNavController().navigate(R.id.action_chatsFragment_to_registrationActivity)
+            this.findNavController().navigate(R.id.action_chatsFragment_to_mainFragment)
             Toast.makeText(requireContext(), "dsfsdfsdf", Toast.LENGTH_SHORT).show()
         }
 
