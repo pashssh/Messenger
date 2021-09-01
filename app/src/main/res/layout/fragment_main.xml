@@ -6,7 +6,8 @@
     tools:context=".MainFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <ImageView
+        android:src="@drawable/ic_launcher_background"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:textSize="50sp"

@@ -6,12 +6,16 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.Toast
+import androidx.navigation.fragment.findNavController
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
+import com.pashssh.messenger.databinding.ChatsFragmentBinding
 
 class ChatsFragment : Fragment() {
 
-    companion object {
-        fun newInstance() = ChatsFragment()
-    }
+
 
     private lateinit var viewModel: ChatsViewModel
 
@@ -19,13 +23,16 @@ class ChatsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.chats_fragment, container, false)
+        val binding = ChatsFragmentBinding.inflate(inflater)
+
+        binding.logout.setOnClickListener {
+            AUTH.signOut()
+            this.findNavController().navigate(R.id.action_chatsFragment_to_registrationActivity)
+            Toast.makeText(requireContext(), "dsfsdfsdf", Toast.LENGTH_SHORT).show()
+        }
+
+        return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(ChatsViewModel::class.java)
-        // TODO: Use the ViewModel
-    }
 
 }

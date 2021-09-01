@@ -21,7 +21,11 @@
         android:id="@+id/chatsFragment"
         android:name="com.pashssh.messenger.ChatsFragment"
         android:label="chats_fragment"
-        tools:layout="@layout/chats_fragment" />
+        tools:layout="@layout/chats_fragment" >
+        <action
+            android:id="@+id/action_chatsFragment_to_registrationActivity"
+            app:destination="@id/registrationActivity" />
+    </fragment>
     <activity
         android:id="@+id/registrationActivity"
         android:name="com.pashssh.messenger.RegistrationActivity"
