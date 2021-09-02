@@ -11,8 +11,9 @@ import androidx.navigation.fragment.navArgs
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.PhoneAuthProvider
 import com.pashssh.messenger.databinding.FragmentEnterCodeBinding
+import com.pashssh.messenger.utils.replaceActivity
 
-class EnterCodeFragment : Fragment() {
+class EnterCodeFragment (val phoneNumber: String, val id: String) : Fragment() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,15 +27,13 @@ class EnterCodeFragment : Fragment() {
     ): View? {
         val binding = FragmentEnterCodeBinding.inflate(inflater)
 
-        val args: EnterCodeFragmentArgs by navArgs()
-
         binding.testBtnCode.setOnClickListener {
             val code = binding.registrationCode.text.toString()
-            val credential = PhoneAuthProvider.getCredential(args.id!!, code)
+            val credential = PhoneAuthProvider.getCredential(id, code)
             AUTH.signInWithCredential(credential).addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     val user = task.result?.user
-                    this.findNavController().navigate(R.id.action_enterCodeFragment_to_mainActivity)
+                    (activity as RegistrationActivity).replaceActivity(MainActivity())
                 } else {
                     if (task.exception is FirebaseAuthInvalidCredentialsException) {
                         // The verification code entered was invalid

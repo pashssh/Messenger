@@ -25,8 +25,12 @@
         android:label="chats_fragment"
         tools:layout="@layout/chats_fragment" >
         <action
-            android:id="@+id/action_chatsFragment_to_mainFragment"
-            app:destination="@id/mainFragment" />
+            android:id="@+id/action_chatsFragment_to_registrationActivity"
+            app:destination="@id/registrationActivity"
+            app:popUpToInclusive="true"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/navigation"
+            />
     </fragment>
     <activity
         android:id="@+id/registrationActivity"

@@ -12,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.pashssh.messenger.databinding.ChatsFragmentBinding
+import com.pashssh.messenger.utils.replaceActivity
 
 class ChatsFragment : Fragment() {
 
@@ -27,7 +28,8 @@ class ChatsFragment : Fragment() {
 
         binding.logout.setOnClickListener {
             AUTH.signOut()
-            this.findNavController().navigate(R.id.action_chatsFragment_to_mainFragment)
+            (activity as MainActivity).replaceActivity(RegistrationActivity())
+
             Toast.makeText(requireContext(), "dsfsdfsdf", Toast.LENGTH_SHORT).show()
         }
 

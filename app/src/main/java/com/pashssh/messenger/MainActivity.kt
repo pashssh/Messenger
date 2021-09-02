@@ -6,6 +6,8 @@ import android.view.View
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import com.google.firebase.auth.FirebaseAuth
+import com.pashssh.messenger.utils.replaceActivity
+import com.pashssh.messenger.utils.replaceFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -15,7 +17,9 @@ class MainActivity : AppCompatActivity() {
 
         initFirebase()
         if (AUTH.currentUser == null) {
-
+            replaceActivity(RegistrationActivity())
+        } else {
+            replaceFragment(ChatsFragment(), false)
         }
 
     }

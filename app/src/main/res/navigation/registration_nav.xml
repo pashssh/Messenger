@@ -6,7 +6,7 @@
     app:startDestination="@id/registrationFragment">
     <fragment
         android:id="@+id/registrationFragment"
-        android:name="com.pashssh.messenger.RegistrationFragment"
+        android:name="com.pashssh.messenger.PhoneNumberFragment"
         android:label="RegistrationFragment" >
         <action
             android:id="@+id/action_registrationFragmen_to_enterCodeFragment"
@@ -32,6 +32,9 @@
             app:nullable="true" />
         <action
             android:id="@+id/action_enterCodeFragment_to_mainActivity"
-            app:destination="@id/mainActivity" />
+            app:destination="@id/mainActivity"
+            app:popUpToInclusive="true"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/navigation"/>
     </fragment>
 </navigation>

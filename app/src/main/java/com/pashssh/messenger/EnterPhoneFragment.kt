@@ -6,23 +6,27 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.navigation.fragment.findNavController
 import com.google.firebase.FirebaseException
 import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthOptions
 import com.google.firebase.auth.PhoneAuthProvider
-import com.pashssh.messenger.databinding.FragmentRegistrationBinding
+import com.pashssh.messenger.databinding.FragmentEnterPhoneBinding
+import com.pashssh.messenger.utils.replaceActivity
+import com.pashssh.messenger.utils.replaceFragment
 import java.util.concurrent.TimeUnit
 
-class RegistrationFragment : Fragment() {
+class EnterPhoneFragment : Fragment() {
+
     private lateinit var mCallback: PhoneAuthProvider.OnVerificationStateChangedCallbacks
     private lateinit var mPhoneNumber: String
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding = FragmentRegistrationBinding.inflate(inflater)
+
+        val binding = FragmentEnterPhoneBinding.inflate(inflater)
 
         mCallback = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
             override fun onVerificationCompleted(credential: PhoneAuthCredential) {
@@ -30,8 +34,7 @@ class RegistrationFragment : Fragment() {
                     if (it.isSuccessful) {
                         Toast.makeText(requireContext(), "Добро пожаловать", Toast.LENGTH_SHORT)
                             .show()
-                        this@RegistrationFragment.findNavController()
-                            .navigate(R.id.action_registrationFragmen_to_enterCodeFragment)
+                        (activity as RegistrationActivity).replaceActivity(MainActivity())
                     } else {
                         Toast.makeText(
                             requireContext(),
@@ -41,7 +44,6 @@ class RegistrationFragment : Fragment() {
                     }
                 }
             }
-
             override fun onVerificationFailed(p0: FirebaseException) {
                 Toast.makeText(
                     requireContext(),
@@ -49,18 +51,13 @@ class RegistrationFragment : Fragment() {
                     Toast.LENGTH_SHORT
                 ).show()
             }
-
             override fun onCodeSent(id: String, token: PhoneAuthProvider.ForceResendingToken) {
-                this@RegistrationFragment.findNavController().navigate(
-                    RegistrationFragmentDirections.actionRegistrationFragmenToEnterCodeFragment(mPhoneNumber, id))
+                (activity as RegistrationActivity).replaceFragment(EnterCodeFragment(mPhoneNumber, id))
             }
-
         }
-
 
         binding.testBtn.setOnClickListener {
             mPhoneNumber = binding.registrationNumberPhone.text.toString()
-
             val options = PhoneAuthOptions.newBuilder(AUTH)
                 .setPhoneNumber(mPhoneNumber)
                 .setTimeout(60, TimeUnit.SECONDS)
@@ -69,7 +66,6 @@ class RegistrationFragment : Fragment() {
                 .build()
             PhoneAuthProvider.verifyPhoneNumber(options)
         }
-
 
         return binding.root
     }

@@ -7,16 +7,12 @@
     tools:context=".RegistrationActivity">
 
     <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/nav_registration_fragment"
-        android:name="androidx.navigation.fragment.NavHostFragment"
+        android:id="@+id/data_container"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-
-        app:defaultNavHost="true"
-        app:navGraph="@navigation/registration_nav" />
+        app:layout_constraintTop_toTopOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

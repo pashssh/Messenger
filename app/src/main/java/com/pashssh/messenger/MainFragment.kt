@@ -17,20 +17,14 @@ class MainFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        initFirebase()
+
 
 
 //
         return inflater.inflate(R.layout.fragment_main, container, false)
     }
 
-    override fun onStart() {
-        super.onStart()
-        initFirebase()
-        if (AUTH.currentUser == null) {
-            this.findNavController().navigate(R.id.action_mainFragment_to_registrationActivity)
-        } else {
-            this.findNavController().navigate(R.id.action_mainFragment_to_chatsFragment)
-        }
-    }
+
 
 }
