@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "849215911918",
+    "firebase_url": "https://messenger-b4392-default-rtdb.europe-west1.firebasedatabase.app",
     "project_id": "messenger-b4392",
     "storage_bucket": "messenger-b4392.appspot.com"
   },
@@ -14,7 +15,15 @@
       },
       "oauth_client": [
         {
-          "client_id": "849215911918-qt709njrfes5rs399nf9t9hu9ocsud75.apps.googleusercontent.com",
+          "client_id": "849215911918-f3ph1bo7mfc566qlt8t3vq67a1gkrh4r.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.pashssh.messenger",
+            "certificate_hash": "ff47219e72f7534e45416233516e99b470706bec"
+          }
+        },
+        {
+          "client_id": "849215911918-rna9e0ht7t2qcmgn8uo3e6aiq2svb1iv.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.pashssh.messenger",

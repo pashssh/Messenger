@@ -69,6 +69,7 @@ class EnterCodeFragment(val phoneNumber: String, val id: String) : Fragment() {
         AUTH.signInWithCredential(credential).addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 val user = task.result?.user
+                REF_DATABASE.setValue(user?.uid)
                 (activity as RegistrationActivity).replaceActivity(MainActivity())
             } else {
                 if (task.exception is FirebaseAuthInvalidCredentialsException) {
