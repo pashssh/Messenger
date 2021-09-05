@@ -1,17 +1,11 @@
 package com.pashssh.messenger
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.Toast
-import androidx.navigation.fragment.findNavController
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ktx.database
+import androidx.fragment.app.Fragment
 import com.google.firebase.ktx.Firebase
 import com.pashssh.messenger.databinding.ChatsFragmentBinding
 import com.pashssh.messenger.utils.replaceActivity
@@ -28,10 +22,6 @@ class ChatsFragment : Fragment() {
     ): View? {
         val binding = ChatsFragmentBinding.inflate(inflater)
 
-        val database = Firebase.database
-
-
-
         binding.logout.setOnClickListener {
             AUTH.signOut()
             (activity as MainActivity).replaceActivity(RegistrationActivity())
@@ -39,9 +29,8 @@ class ChatsFragment : Fragment() {
             Toast.makeText(requireContext(), "dsfsdfsdf", Toast.LENGTH_SHORT).show()
         }
         binding.write.setOnClickListener {
-            REF_DATABASE.child("UUID").setValue(AUTH.uid)
+            REF_DATABASE.child(NODE_USERS).child(AUTH.currentUser!!.uid).setValue(AUTH.currentUser!!.toUser())
         }
-
 
         return binding.root
     }
