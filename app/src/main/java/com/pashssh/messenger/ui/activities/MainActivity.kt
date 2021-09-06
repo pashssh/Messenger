@@ -1,19 +1,25 @@
-package com.pashssh.messenger
+package com.pashssh.messenger.ui.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
-import androidx.navigation.Navigation
-import androidx.navigation.findNavController
-import com.google.firebase.auth.FirebaseAuth
+import com.pashssh.messenger.AUTH
+import com.pashssh.messenger.ui.fragments.ChatsFragment
+import com.pashssh.messenger.R
+import com.pashssh.messenger.databinding.ActivityMainBinding
+import com.pashssh.messenger.initFirebase
 import com.pashssh.messenger.utils.replaceActivity
 import com.pashssh.messenger.utils.replaceFragment
 
 class MainActivity : AppCompatActivity() {
 
+    private lateinit var binding: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        setSupportActionBar(binding.appBarMain.toolbar)
 
         initFirebase()
         if (AUTH.currentUser == null) {

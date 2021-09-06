@@ -14,12 +14,12 @@
     </fragment>
     <activity
         android:id="@+id/mainActivity"
-        android:name="com.pashssh.messenger.MainActivity"
+        android:name="com.pashssh.messenger.ui.activities.MainActivity"
         android:label="activity_main"
         tools:layout="@layout/activity_main" />
     <fragment
         android:id="@+id/enterCodeFragment"
-        android:name="com.pashssh.messenger.EnterCodeFragment"
+        android:name="com.pashssh.messenger.ui.fragments.EnterCodeFragment"
         android:label="fragment_enter_code"
         tools:layout="@layout/fragment_enter_code" >
         <argument

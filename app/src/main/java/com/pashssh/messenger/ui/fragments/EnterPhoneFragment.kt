@@ -1,4 +1,4 @@
-package com.pashssh.messenger
+package com.pashssh.messenger.ui.fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -10,7 +10,10 @@ import com.google.firebase.FirebaseException
 import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthOptions
 import com.google.firebase.auth.PhoneAuthProvider
+import com.pashssh.messenger.AUTH
 import com.pashssh.messenger.databinding.FragmentEnterPhoneBinding
+import com.pashssh.messenger.ui.activities.MainActivity
+import com.pashssh.messenger.ui.activities.RegistrationActivity
 import com.pashssh.messenger.utils.replaceActivity
 import com.pashssh.messenger.utils.replaceFragment
 import java.util.concurrent.TimeUnit

@@ -1,13 +1,15 @@
-package com.pashssh.messenger
+package com.pashssh.messenger.ui.fragments
 
 import android.os.Bundle
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.fragment.app.Fragment
-import com.google.firebase.ktx.Firebase
+import com.pashssh.messenger.*
 import com.pashssh.messenger.databinding.ChatsFragmentBinding
+import com.pashssh.messenger.ui.activities.MainActivity
+import com.pashssh.messenger.ui.activities.RegistrationActivity
 import com.pashssh.messenger.utils.replaceActivity
 
 class ChatsFragment : Fragment() {
