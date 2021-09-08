@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.navigation.findNavController
 import com.google.firebase.FirebaseException
 import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthOptions
@@ -15,7 +16,6 @@ import com.pashssh.messenger.databinding.FragmentEnterPhoneBinding
 import com.pashssh.messenger.ui.activities.MainActivity
 import com.pashssh.messenger.ui.activities.RegistrationActivity
 import com.pashssh.messenger.utils.replaceActivity
-import com.pashssh.messenger.utils.replaceFragment
 import java.util.concurrent.TimeUnit
 
 class EnterPhoneFragment : Fragment() {
@@ -37,7 +37,7 @@ class EnterPhoneFragment : Fragment() {
                     if (it.isSuccessful) {
                         Toast.makeText(requireContext(), "Добро пожаловать", Toast.LENGTH_SHORT)
                             .show()
-                        (activity as RegistrationActivity).replaceActivity(MainActivity())
+                        requireView().findNavController().navigate(R.id.action_enterCodeFragment_to_mainActivity)
                     } else {
                         Toast.makeText(
                             requireContext(),
@@ -55,7 +55,7 @@ class EnterPhoneFragment : Fragment() {
                 ).show()
             }
             override fun onCodeSent(id: String, token: PhoneAuthProvider.ForceResendingToken) {
-                (activity as RegistrationActivity).replaceFragment(EnterCodeFragment(mPhoneNumber, id))
+                requireView().findNavController().navigate(EnterPhoneFragmentDirections.actionEnterPhoneFragmentToEnterCodeFragment(mPhoneNumber, id))
             }
         }
 

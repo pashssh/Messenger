@@ -4,38 +4,29 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation"
     app:startDestination="@id/mainFragment">
-
+    <fragment
+        android:id="@+id/chatsFragment"
+        android:name="com.pashssh.messenger.ChatsFragment"
+        android:label="ChatsFragment" />
     <fragment
         android:id="@+id/mainFragment"
-        android:name="com.pashssh.messenger.ui.fragments.MainFragment"
+        android:name="com.pashssh.messenger.MainFragment"
         android:label="fragment_main"
         tools:layout="@layout/fragment_main" >
         <action
             android:id="@+id/action_mainFragment_to_chatsFragment"
-            app:destination="@id/chatsFragment"
-            app:launchSingleTop="false" />
+            app:destination="@id/chatsFragment" />
         <action
             android:id="@+id/action_mainFragment_to_registrationActivity"
             app:destination="@id/registrationActivity"
-             />
-    </fragment>
-    <fragment
-        android:id="@+id/chatsFragment"
-        android:name="com.pashssh.messenger.ui.fragments.ChatsFragment"
-        android:label="chats_fragment"
-        tools:layout="@layout/chats_fragment" >
-        <action
-            android:id="@+id/action_chatsFragment_to_registrationActivity"
-            app:destination="@id/registrationActivity"
-            app:popUpToInclusive="true"
-            app:launchSingleTop="true"
             app:popUpTo="@id/navigation"
-            />
+            app:popUpToInclusive="true" />
     </fragment>
     <activity
         android:id="@+id/registrationActivity"
-        android:name="com.pashssh.messenger.ui.activities.RegistrationActivity"
+        android:name="com.pashssh.messenger.RegistrationActivity"
         android:label="activity_registration"
+        tools:layout="@layout/activity_registration" >
 
-        tools:layout="@layout/activity_registration" />
+    </activity>
 </navigation>

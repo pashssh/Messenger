@@ -8,7 +8,6 @@ import com.pashssh.messenger.R
 import com.pashssh.messenger.databinding.ActivityMainBinding
 import com.pashssh.messenger.initFirebase
 import com.pashssh.messenger.utils.replaceActivity
-import com.pashssh.messenger.utils.replaceFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -22,11 +21,11 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(binding.appBarMain.toolbar)
 
         initFirebase()
-        if (AUTH.currentUser == null) {
-            replaceActivity(RegistrationActivity())
-        } else {
-            replaceFragment(ChatsFragment(), false)
-        }
+//        if (AUTH.currentUser == null) {
+//            replaceActivity(RegistrationActivity())
+//        } else {
+//            replaceFragment(ChatsFragment(), false)
+//        }
 
     }
 }

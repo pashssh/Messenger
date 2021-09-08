@@ -11,15 +11,15 @@ fun AppCompatActivity.replaceActivity(activity: AppCompatActivity) {
     this.finish()
 }
 
-fun AppCompatActivity.replaceFragment(fragment: Fragment, addBackStack: Boolean = true) {
-    if (addBackStack) {
-        supportFragmentManager.beginTransaction()
-            .addToBackStack(null)
-            .replace(R.id.data_container, fragment)
-            .commit()
-    } else {
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.data_container, fragment)
-            .commit()
-    }
-}
+//fun AppCompatActivity.replaceFragment(fragment: Fragment, addBackStack: Boolean = true) {
+//    if (addBackStack) {
+//        supportFragmentManager.beginTransaction()
+//            .addToBackStack(null)
+//            .replace(R.id.data_container, fragment)
+//            .commit()
+//    } else {
+//        supportFragmentManager.beginTransaction()
+//            .replace(R.id.data_container, fragment)
+//            .commit()
+//    }
+//}

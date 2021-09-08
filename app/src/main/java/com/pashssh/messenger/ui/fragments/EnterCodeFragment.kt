@@ -1,6 +1,8 @@
-package com.pashssh.messenger.ui.fragments
+package com.pashssh.messenger
 
 import android.app.Activity
+import android.content.Context
+import android.inputmethodservice.InputMethodService
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -10,18 +12,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
+import androidx.core.content.ContextCompat.getSystemService
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.PhoneAuthProvider
-import com.pashssh.messenger.AUTH
-import com.pashssh.messenger.NODE_USERS
-import com.pashssh.messenger.REF_DATABASE
 import com.pashssh.messenger.databinding.FragmentEnterCodeBinding
-import com.pashssh.messenger.toUser
-import com.pashssh.messenger.ui.activities.MainActivity
-import com.pashssh.messenger.ui.activities.RegistrationActivity
 import com.pashssh.messenger.utils.replaceActivity
 
-class EnterCodeFragment(val phoneNumber: String, val id: String) : Fragment() {
+class EnterCodeFragment() : Fragment() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -68,14 +65,16 @@ class EnterCodeFragment(val phoneNumber: String, val id: String) : Fragment() {
     }
 
     private fun enterCode(code: String) {
-        val credential = PhoneAuthProvider.getCredential(id, code)
+        val args = EnterCodeFragmentArgs.fromBundle(requireArguments())
+        val credential = PhoneAuthProvider.getCredential(args.id, code)
         AUTH.signInWithCredential(credential).addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 val user = task.result?.user
                 if (user != null) {
                     REF_DATABASE.child(NODE_USERS).child(user.uid).setValue(user.toUser())
                 }
-                (activity as RegistrationActivity).replaceActivity(MainActivity())
+//                (activity as RegistrationActivity).replaceActivity(MainActivity())
+                requireView().findNavController().navigate(R.id.action_enterCodeFragment_to_mainActivity)
             } else {
                 if (task.exception is FirebaseAuthInvalidCredentialsException) {
                     Toast.makeText(requireContext(), "Неверный код", Toast.LENGTH_SHORT).show()
