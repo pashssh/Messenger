@@ -32,10 +32,8 @@ class ChatsFragment : Fragment() {
         binding.write.setOnClickListener {
         }
 
-
         binding.logout.setOnClickListener {
             AUTH.signOut()
-            (activity as MainActivity).replaceActivity(RegistrationActivity())
 
             Toast.makeText(requireContext(), "dsfsdfsdf", Toast.LENGTH_SHORT).show()
         }

@@ -1,22 +1,21 @@
-package com.pashssh.messenger
+package com.pashssh.messenger.ui.fragments
 
 import android.app.Activity
-import android.content.Context
-import android.inputmethodservice.InputMethodService
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
-import androidx.core.content.ContextCompat.getSystemService
+import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.PhoneAuthProvider
+import com.pashssh.messenger.*
 import com.pashssh.messenger.databinding.FragmentEnterCodeBinding
-import com.pashssh.messenger.utils.replaceActivity
+import com.pashssh.messenger.ui.activities.RegistrationActivity
 
 class EnterCodeFragment() : Fragment() {
 

@@ -5,28 +5,26 @@
     android:id="@+id/navigation"
     app:startDestination="@id/mainFragment">
     <fragment
-        android:id="@+id/chatsFragment"
-        android:name="com.pashssh.messenger.ChatsFragment"
-        android:label="ChatsFragment" />
-    <fragment
         android:id="@+id/mainFragment"
         android:name="com.pashssh.messenger.MainFragment"
-        android:label="fragment_main"
-        tools:layout="@layout/fragment_main" >
+        android:label="MainFragment" >
         <action
             android:id="@+id/action_mainFragment_to_chatsFragment"
-            app:destination="@id/chatsFragment" />
+            app:destination="@id/chatsFragment"
+            app:popUpTo="@id/mainFragment"
+            app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_mainFragment_to_registrationActivity"
             app:destination="@id/registrationActivity"
             app:popUpTo="@id/navigation"
             app:popUpToInclusive="true" />
     </fragment>
+    <fragment
+        android:id="@+id/chatsFragment"
+        android:name="com.pashssh.messenger.ChatsFragment"
+        android:label="ChatsFragment" />
     <activity
         android:id="@+id/registrationActivity"
-        android:name="com.pashssh.messenger.RegistrationActivity"
-        android:label="activity_registration"
-        tools:layout="@layout/activity_registration" >
-
-    </activity>
+        android:name="com.pashssh.messenger.ui.activities.RegistrationActivity"
+        android:label="RegistrationActivity" />
 </navigation>

@@ -6,7 +6,7 @@
     app:startDestination="@id/enterPhoneFragment">
     <fragment
         android:id="@+id/enterPhoneFragment"
-        android:name="com.pashssh.messenger.EnterPhoneFragment"
+        android:name="com.pashssh.messenger.ui.fragments.EnterPhoneFragment"
         android:label="EnterPhoneFragment" >
         <action
             android:id="@+id/action_enterPhoneFragment_to_enterCodeFragment"
@@ -14,11 +14,13 @@
     </fragment>
     <fragment
         android:id="@+id/enterCodeFragment"
-        android:name="com.pashssh.messenger.EnterCodeFragment"
+        android:name="com.pashssh.messenger.ui.fragments.EnterCodeFragment"
         android:label="EnterCodeFragment" >
         <action
             android:id="@+id/action_enterCodeFragment_to_mainActivity"
-            app:destination="@id/mainActivity" />
+            app:destination="@id/mainActivity"
+            app:popUpTo="@id/mainActivity"
+            app:popUpToInclusive="true" />
         <argument
             android:name="phoneNumber"
             app:argType="string" />
@@ -28,7 +30,6 @@
     </fragment>
     <activity
         android:id="@+id/mainActivity"
-        android:name="com.pashssh.messenger.MainActivity"
-        android:label="activity_main"
-        tools:layout="@layout/activity_main" />
+        android:name="com.pashssh.messenger.ui.activities.MainActivity"
+        android:label="MainActivity" />
 </navigation>
