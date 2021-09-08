@@ -1,13 +1,13 @@
 package com.pashssh.messenger
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.NavigationUI
 import com.google.firebase.ktx.Firebase
 import com.pashssh.messenger.databinding.ChatsFragmentBinding
 import com.pashssh.messenger.utils.replaceActivity
@@ -29,8 +29,7 @@ class ChatsFragment : Fragment() {
     ): View? {
         val binding = ChatsFragmentBinding.inflate(inflater)
 
-        binding.write.setOnClickListener {
-        }
+        binding.write.setOnClickListener {}
 
         binding.logout.setOnClickListener {
             AUTH.signOut()
@@ -39,9 +38,20 @@ class ChatsFragment : Fragment() {
         }
 
 
-//            REF_DATABASE.child(NODE_USERS).child(AUTH.currentUser!!.uid).setValue(AUTH.currentUser!!.toUser())
-
+        setHasOptionsMenu(true)
         return binding.root
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.app_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return NavigationUI.onNavDestinationSelected(
+            item,
+            requireView().findNavController()
+        ) || super.onOptionsItemSelected(item)
     }
 
 

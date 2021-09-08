@@ -20,11 +20,6 @@ class MainFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        if (AUTH.currentUser == null) {
-            requireView().findNavController().navigate(R.id.action_mainFragment_to_registrationActivity)
-        } else {
-            requireView().findNavController().navigate(R.id.action_mainFragment_to_chatsFragment)
-        }
     }
 
 
