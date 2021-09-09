@@ -4,28 +4,29 @@ import android.os.Bundle
 import android.view.*
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.navigation.findNavController
-import androidx.navigation.ui.NavigationUI
+import androidx.lifecycle.ViewModelProvider
 import com.pashssh.messenger.databinding.FragmentChatsBinding
 
 class ChatsFragment : Fragment() {
 
 
-    private lateinit var viewModel: ChatsViewModel
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    private lateinit var chatsViewModel: ChatsViewModel
+    private var _binding: FragmentChatsBinding? = null
 
 
-    }
+    private val binding get() = _binding!!
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding = FragmentChatsBinding.inflate(inflater)
+        _binding = FragmentChatsBinding.inflate(inflater, container, false)
+        chatsViewModel = ViewModelProvider(this).get(ChatsViewModel::class.java)
 
-        binding.write.setOnClickListener {}
+        binding.write.setOnClickListener {
+            REF_DATABASE.child("123").child("k2").setValue("v2")
+        }
 
         binding.logout.setOnClickListener {
             AUTH.signOut()
@@ -36,6 +37,11 @@ class ChatsFragment : Fragment() {
 
         setHasOptionsMenu(true)
         return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
 //    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
