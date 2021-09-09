@@ -4,13 +4,9 @@ import android.os.Bundle
 import android.view.*
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.navigation.Navigation
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
-import com.google.firebase.ktx.Firebase
-import com.pashssh.messenger.databinding.ChatsFragmentBinding
-import com.pashssh.messenger.utils.replaceActivity
+import com.pashssh.messenger.databinding.FragmentChatsBinding
 
 class ChatsFragment : Fragment() {
 
@@ -27,7 +23,7 @@ class ChatsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding = ChatsFragmentBinding.inflate(inflater)
+        val binding = FragmentChatsBinding.inflate(inflater)
 
         binding.write.setOnClickListener {}
 
@@ -42,17 +38,17 @@ class ChatsFragment : Fragment() {
         return binding.root
     }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater)
-        inflater.inflate(R.menu.app_menu, menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return NavigationUI.onNavDestinationSelected(
-            item,
-            requireView().findNavController()
-        ) || super.onOptionsItemSelected(item)
-    }
+//    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+//        super.onCreateOptionsMenu(menu, inflater)
+//        inflater.inflate(R.menu.app_menu, menu)
+//    }
+//
+//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+//        return NavigationUI.onNavDestinationSelected(
+//            item,
+//            requireView().findNavController()
+//        ) || super.onOptionsItemSelected(item)
+//    }
 
 
 }

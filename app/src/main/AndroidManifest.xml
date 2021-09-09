@@ -15,6 +15,7 @@
             android:name=".ui.activities.RegistrationActivity"
             android:exported="true" />
         <activity
+            android:theme="@style/Theme.Messenger.NoActionBar"
             android:name=".ui.activities.MainActivity"
             android:exported="true">
             <intent-filter>
