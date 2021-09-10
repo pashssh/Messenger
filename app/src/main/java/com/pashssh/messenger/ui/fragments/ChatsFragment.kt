@@ -30,6 +30,7 @@ class ChatsFragment : Fragment() {
 
         binding.logout.setOnClickListener {
             AUTH.signOut()
+            requireActivity().recreate()
 
             Toast.makeText(requireContext(), "dsfsdfsdf", Toast.LENGTH_SHORT).show()
         }

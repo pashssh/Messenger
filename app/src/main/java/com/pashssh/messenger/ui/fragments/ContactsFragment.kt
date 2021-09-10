@@ -5,37 +5,99 @@ import android.provider.ContactsContract
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.RecyclerView
+import com.firebase.ui.database.FirebaseRecyclerAdapter
+import com.firebase.ui.database.FirebaseRecyclerOptions
+import com.google.firebase.database.DatabaseReference
 import com.pashssh.messenger.*
 import com.pashssh.messenger.databinding.FragmentContactsBinding
 import com.pashssh.messenger.utils.AppValueEventListener
 import com.pashssh.messenger.utils.READ_CONTACTS
 import com.pashssh.messenger.utils.checkAndRequestPermission
+import org.w3c.dom.Text
 
 
 class ContactsFragment : Fragment() {
 
+    data class ContactModel(
+        val fullName: String = "",
+        val phone: String = "",
+        val id: String = ""
+    )
+
+    data class ContactModelTest(
+        val id: String = ""
+    )
+
     private var _binding: FragmentContactsBinding? = null
+    private lateinit var mRecyclerView: RecyclerView
+    private lateinit var mAdapter: FirebaseRecyclerAdapter<ContactModel, ContactsHolder>
+    private lateinit var mRefContacts: DatabaseReference
 
     private val binding get() = _binding!!
 
+    class ContactsHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val name: TextView = view.findViewById(R.id.item_contact_fullname)
+        val status: TextView = view.findViewById(R.id.item_contact_status)
+        val photo: ImageView = view.findViewById(R.id.item_contact_photo)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentContactsBinding.inflate(inflater)
-
         initContacts()
-
-
         return binding.root
     }
 
-    data class ContactModel(
-        val fullName: String,
-        val phoneNumber: String
-    )
+    override fun onResume() {
+        super.onResume()
+        initRecyclerView()
+    }
+
+    private fun initRecyclerView() {
+        mRecyclerView = binding.contactsRecyclerView
+        mRefContacts = REF_DATABASE.child(USERS_CHILD).child(CURRENT_UID).child(
+            CONTACTS_CHILD
+        )
+
+        val options = FirebaseRecyclerOptions.Builder<ContactModel>()
+            .setQuery(mRefContacts, ContactModel::class.java).build()
+        mAdapter = object : FirebaseRecyclerAdapter<ContactModel, ContactsHolder>(options) {
+            override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContactsHolder {
+                return ContactsHolder(
+                    LayoutInflater.from(parent.context)
+                        .inflate(R.layout.item_contact, parent, false)
+                )
+            }
+
+            override fun onBindViewHolder(
+                holder: ContactsHolder,
+                position: Int,
+                model: ContactModel
+            ) {
+                holder.name.text = model.id
+                holder.status.text = model.id
+            }
+        }
+        mRecyclerView.adapter = mAdapter
+        mAdapter.startListening()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        mAdapter.stopListening()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
 
     private fun initContacts() {
         if (checkAndRequestPermission(requireActivity(), READ_CONTACTS)) {
@@ -62,22 +124,16 @@ class ContactsFragment : Fragment() {
             REF_DATABASE.child(PHONES_CHILD).addListenerForSingleValueEvent(AppValueEventListener {
                 it.children.forEach { snapshot ->
                     arrayContacts.forEach { contact ->
-                        if (snapshot.key == contact.phoneNumber) {
-                            REF_DATABASE.child(USERS_CHILD).child(AUTH.currentUser!!.uid)
-                                .child("contacts").child(snapshot.value.toString())
-                                .setValue(snapshot.value.toString())
+                        if (snapshot.key == contact.phone &&
+                            snapshot.key != AUTH.currentUser!!.phoneNumber
+                        ) {
+                            REF_DATABASE.child(USERS_CHILD).child(CURRENT_UID)
+                                .child(CONTACTS_CHILD).child(snapshot.value.toString())
+                                .child("id").setValue(snapshot.value.toString())
                         }
                     }
                 }
             })
         }
     }
-
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
-
-
 }
