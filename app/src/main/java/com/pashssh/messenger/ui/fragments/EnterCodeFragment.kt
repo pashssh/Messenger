@@ -70,10 +70,25 @@ class EnterCodeFragment() : Fragment() {
             if (task.isSuccessful) {
                 val user = task.result?.user
                 if (user != null) {
-                    REF_DATABASE.child(NODE_USERS).child(user.uid).setValue(user.toUser())
+                    REF_DATABASE.child(PHONES_CHILD).child(user.phoneNumber!!).setValue(user.uid)
+                        .addOnFailureListener {
+                            Toast.makeText(
+                                requireContext(), it.message.toString(), Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                        .addOnSuccessListener {
+                            REF_DATABASE.child(USERS_CHILD).child(user.uid).setValue(user.toUser())
+                                .addOnFailureListener {
+                                    Toast.makeText(
+                                        requireContext(), it.message.toString(), Toast.LENGTH_SHORT
+                                    ).show()
+                                }
+                                .addOnSuccessListener {
+                                    requireView().findNavController()
+                                        .navigate(R.id.action_enterCodeFragment_to_mainActivity)
+                                }
+                        }
                 }
-//                (activity as RegistrationActivity).replaceActivity(MainActivity())
-                requireView().findNavController().navigate(R.id.action_enterCodeFragment_to_mainActivity)
             } else {
                 if (task.exception is FirebaseAuthInvalidCredentialsException) {
                     Toast.makeText(requireContext(), "Неверный код", Toast.LENGTH_SHORT).show()

@@ -10,8 +10,9 @@ import com.google.firebase.ktx.Firebase
 lateinit var AUTH: FirebaseAuth
 lateinit var REF_DATABASE: DatabaseReference
 
-const val NODE_USERS = "users"
-const val NODE_CHATS = "chats"
+const val USERS_CHILD = "users"
+const val PHONES_CHILD = "phones"
+const val CHATS_CHILD = "chats"
 
 
 fun initFirebase() {
