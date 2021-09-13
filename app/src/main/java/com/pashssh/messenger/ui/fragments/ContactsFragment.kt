@@ -2,6 +2,7 @@ package com.pashssh.messenger.ui.fragments
 
 import android.os.Bundle
 import android.provider.ContactsContract
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,17 +26,14 @@ class ContactsFragment : Fragment() {
     data class ContactModel(
         val fullName: String = "",
         val phone: String = "",
-        val id: String = ""
-    )
-
-    data class ContactModelTest(
-        val id: String = ""
+        val uid: String = ""
     )
 
     private var _binding: FragmentContactsBinding? = null
     private lateinit var mRecyclerView: RecyclerView
     private lateinit var mAdapter: FirebaseRecyclerAdapter<ContactModel, ContactsHolder>
     private lateinit var mRefContacts: DatabaseReference
+    private lateinit var mRefUsers: DatabaseReference
 
     private val binding get() = _binding!!
 
@@ -61,9 +59,7 @@ class ContactsFragment : Fragment() {
 
     private fun initRecyclerView() {
         mRecyclerView = binding.contactsRecyclerView
-        mRefContacts = REF_DATABASE.child(USERS_CHILD).child(CURRENT_UID).child(
-            CONTACTS_CHILD
-        )
+        mRefContacts = REF_DATABASE.child(CONTACTS_CHILD).child(CURRENT_UID)
 
         val options = FirebaseRecyclerOptions.Builder<ContactModel>()
             .setQuery(mRefContacts, ContactModel::class.java).build()
@@ -80,10 +76,17 @@ class ContactsFragment : Fragment() {
                 position: Int,
                 model: ContactModel
             ) {
-                holder.name.text = model.id
-                holder.status.text = model.id
+                mRefUsers = REF_DATABASE.child(USERS_CHILD).child(model.uid)
+                mRefUsers.addValueEventListener(AppValueEventListener {
+                    val modelIt = it.getValue(UserEntity::class.java)
+
+                    holder.name.text = modelIt?.username.toString()
+                    holder.status.text = modelIt?.state.toString()
+                })
+
             }
         }
+
         mRecyclerView.adapter = mAdapter
         mAdapter.startListening()
     }
@@ -101,7 +104,7 @@ class ContactsFragment : Fragment() {
 
     private fun initContacts() {
         if (checkAndRequestPermission(requireActivity(), READ_CONTACTS)) {
-            var arrayContacts = arrayListOf<ContactModel>()
+            val arrayContacts = arrayListOf<ContactModel>()
             val cursor = requireContext().contentResolver.query(
                 ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
                 null,
@@ -119,17 +122,28 @@ class ContactsFragment : Fragment() {
                     arrayContacts.add(ContactModel(fullName, phone))
                 }
             }
+            Log.d("MYTAG", arrayContacts.toString())
             cursor?.close()
+            Log.d("MYTAG", "b1")
 
             REF_DATABASE.child(PHONES_CHILD).addListenerForSingleValueEvent(AppValueEventListener {
+                Log.d("MYTAG", "b2")
                 it.children.forEach { snapshot ->
                     arrayContacts.forEach { contact ->
                         if (snapshot.key == contact.phone &&
                             snapshot.key != AUTH.currentUser!!.phoneNumber
                         ) {
-                            REF_DATABASE.child(USERS_CHILD).child(CURRENT_UID)
-                                .child(CONTACTS_CHILD).child(snapshot.value.toString())
-                                .child("id").setValue(snapshot.value.toString())
+                            REF_DATABASE.child(CONTACTS_CHILD).child(CURRENT_UID)
+                                .child(snapshot.value.toString()).setValue(
+                                    ContactModel(
+                                        contact.fullName,
+                                        contact.phone,
+                                        snapshot.value.toString()
+
+                                        )
+                                )
+                            Log.d("MYTAG", "b4")
+
                         }
                     }
                 }
