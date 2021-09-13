@@ -34,6 +34,8 @@ class ContactsFragment : Fragment() {
     private lateinit var mAdapter: FirebaseRecyclerAdapter<ContactModel, ContactsHolder>
     private lateinit var mRefContacts: DatabaseReference
     private lateinit var mRefUsers: DatabaseReference
+    private lateinit var mEventListener: AppValueEventListener
+    private var mapListener = hashMapOf<DatabaseReference, AppValueEventListener>()
 
     private val binding get() = _binding!!
 
@@ -77,12 +79,15 @@ class ContactsFragment : Fragment() {
                 model: ContactModel
             ) {
                 mRefUsers = REF_DATABASE.child(USERS_CHILD).child(model.uid)
-                mRefUsers.addValueEventListener(AppValueEventListener {
-                    val modelIt = it.getValue(UserEntity::class.java)
 
+                mEventListener = AppValueEventListener {
+                    val modelIt = it.getValue(UserEntity::class.java)
                     holder.name.text = modelIt?.username.toString()
                     holder.status.text = modelIt?.state.toString()
-                })
+                }
+
+                mRefUsers.addValueEventListener(mEventListener)
+                mapListener[mRefUsers] = mEventListener
 
             }
         }
@@ -94,6 +99,9 @@ class ContactsFragment : Fragment() {
     override fun onPause() {
         super.onPause()
         mAdapter.stopListening()
+        mapListener.forEach{
+            it.key.removeEventListener(it.value)
+        }
     }
 
     override fun onDestroyView() {
