@@ -11,7 +11,11 @@
     <fragment
         android:id="@+id/contactsFragment"
         android:name="com.pashssh.messenger.ui.fragments.ContactsFragment"
-        android:label="ContactsFragment" />
+        android:label="ContactsFragment" >
+        <action
+            android:id="@+id/action_contactsFragment_to_singleChatFragment"
+            app:destination="@id/singleChatFragment" />
+    </fragment>
     <fragment
         android:id="@+id/mainFragment"
         android:name="com.pashssh.messenger.MainFragment"
@@ -20,4 +24,8 @@
         android:id="@+id/settingsFragment"
         android:name="com.pashssh.messenger.ui.fragments.SettingsFragment"
         android:label="SettingsFragment" />
+    <fragment
+        android:id="@+id/singleChatFragment"
+        android:name="com.pashssh.messenger.ui.fragments.SingleChatFragment"
+        android:label="SingleChatFragment" />
 </navigation>

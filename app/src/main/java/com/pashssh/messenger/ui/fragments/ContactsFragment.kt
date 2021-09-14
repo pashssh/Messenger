@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.firebase.ui.database.FirebaseRecyclerAdapter
 import com.firebase.ui.database.FirebaseRecyclerOptions
@@ -84,6 +85,9 @@ class ContactsFragment : Fragment() {
                     val modelIt = it.getValue(UserEntity::class.java)
                     holder.name.text = modelIt?.username.toString()
                     holder.status.text = modelIt?.state.toString()
+                    holder.itemView.setOnClickListener {
+                        requireView().findNavController().navigate(ContactsFragmentDirections.actionContactsFragmentToSingleChatFragment())
+                    }
                 }
 
                 mRefUsers.addValueEventListener(mEventListener)
