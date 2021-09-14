@@ -4,6 +4,7 @@ import android.app.Activity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +12,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.PhoneAuthProvider
 import com.pashssh.messenger.*
@@ -63,33 +65,35 @@ class EnterCodeFragment() : Fragment() {
         return binding.root
     }
 
-    private fun enterCode(code: String) {
+    private fun enterCode(code: String){
         val args = EnterCodeFragmentArgs.fromBundle(requireArguments())
         val credential = PhoneAuthProvider.getCredential(args.id, code)
         AUTH.signInWithCredential(credential).addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 val user = task.result?.user
+                Log.d("MYTAG", user.toString() + "user")
                 if (user != null) {
-                    REF_DATABASE.child(PHONES_CHILD).child(user.phoneNumber!!).setValue(user.uid)
-                        .addOnFailureListener {
-                            Toast.makeText(
-                                requireContext(), it.message.toString(), Toast.LENGTH_SHORT
-                            ).show()
+                REF_DATABASE.child(PHONES_CHILD).child(user.phoneNumber!!).setValue(user.uid)
+                    .addOnFailureListener {
+                        Toast.makeText(
+                            requireContext(), it.message.toString(), Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                    .addOnSuccessListener {
+                        REF_DATABASE.child(USERS_CHILD).child(user.uid).setValue(user.toUser())
+                            .addOnFailureListener {
+                                Toast.makeText(
+                                    requireContext(), it.message.toString(), Toast.LENGTH_SHORT
+                                ).show()
+                            }
+                            .addOnSuccessListener {
+                                this.findNavController()
+                                    .navigate(R.id.action_enterCodeFragment_to_mainActivity)
+                            }
                         }
-                        .addOnSuccessListener {
-                            REF_DATABASE.child(USERS_CHILD).child(user.uid).setValue(user.toUser())
-                                .addOnFailureListener {
-                                    Toast.makeText(
-                                        requireContext(), it.message.toString(), Toast.LENGTH_SHORT
-                                    ).show()
-                                }
-                                .addOnSuccessListener {
-                                    requireView().findNavController()
-                                        .navigate(R.id.action_enterCodeFragment_to_mainActivity)
-                                }
-                        }
-                }
+                    }
             } else {
+                Log.d("MYTAG", task.exception.toString() + "exep")
                 if (task.exception is FirebaseAuthInvalidCredentialsException) {
                     Toast.makeText(requireContext(), "Неверный код", Toast.LENGTH_SHORT).show()
                 }
