@@ -35,7 +35,7 @@
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="@+id/item_contact_photo"
         app:layout_constraintStart_toStartOf="@+id/item_contact_fullname"
-        tools:text="Online" />
+        tools:text="@string/status_online" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
