@@ -10,4 +10,5 @@
     <string name="contacts">Контакты</string>
     <string name="settings">Настройки</string>
     <string name="status_online">В сети</string>
+    <string name="hint_message">Сообщение</string>
 </resources>
