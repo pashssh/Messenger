@@ -86,7 +86,13 @@ class ContactsFragment : Fragment() {
                     holder.name.text = modelIt?.username.toString()
                     holder.status.text = modelIt?.state.toString()
                     holder.itemView.setOnClickListener {
-                        requireView().findNavController().navigate(ContactsFragmentDirections.actionContactsFragmentToSingleChatFragment())
+                        if (modelIt != null) {
+                            requireView().findNavController().navigate(
+                                ContactsFragmentDirections.actionContactsToSingleChat(
+                                    modelIt.uid
+                                )
+                            )
+                        }
                     }
                 }
 
@@ -103,7 +109,7 @@ class ContactsFragment : Fragment() {
     override fun onPause() {
         super.onPause()
         mAdapter.stopListening()
-        mapListener.forEach{
+        mapListener.forEach {
             it.key.removeEventListener(it.value)
         }
     }
@@ -136,10 +142,8 @@ class ContactsFragment : Fragment() {
             }
             Log.d("MYTAG", arrayContacts.toString())
             cursor?.close()
-            Log.d("MYTAG", "b1")
 
             REF_DATABASE.child(PHONES_CHILD).addListenerForSingleValueEvent(AppValueEventListener {
-                Log.d("MYTAG", "b2")
                 it.children.forEach { snapshot ->
                     arrayContacts.forEach { contact ->
                         if (snapshot.key == contact.phone &&
@@ -152,9 +156,8 @@ class ContactsFragment : Fragment() {
                                         contact.phone,
                                         snapshot.value.toString()
 
-                                        )
+                                    )
                                 )
-                            Log.d("MYTAG", "b4")
 
                         }
                     }

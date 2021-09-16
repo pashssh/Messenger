@@ -1,10 +1,12 @@
 package com.pashssh.messenger
 
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.google.firebase.database.ServerValue
 import com.pashssh.messenger.databinding.FragmentChatsBinding
 
 class ChatsFragment : Fragment() {
