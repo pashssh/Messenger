@@ -14,6 +14,7 @@ lateinit var CURRENT_UID: String
 const val USERS_CHILD = "users"
 const val PHONES_CHILD = "phones"
 const val CONTACTS_CHILD = "contacts"
+const val MESSAGE_CHILD = "message"
 const val CHATS_CHILD = "chats"
 
 
