@@ -9,4 +9,6 @@
     <color name="gray">#FF424242</color>
     <color name="white">#FFFFFFFF</color>
     <color name="transparent">#00000000</color>
+
+    <color name="item_chat_background_day">#939393</color>
 </resources>

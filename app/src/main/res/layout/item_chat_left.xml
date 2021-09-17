@@ -2,46 +2,49 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginStart="100dp">
+    android:layout_marginEnd="100dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="2dp"
         android:background="@drawable/item_message_background"
         android:padding="4dp"
-        android:layout_margin="2dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/item_chat_right_text"
+            android:id="@+id/item_chat_left_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:textSize="20sp"
-            app:layout_constraintEnd_toStartOf="@+id/item_chat_right_time"
+            app:layout_constraintEnd_toStartOf="@id/item_chat_left_time"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="fdgdgdfgdfgdfg" />
+            tools:text="dfgdfg" />
 
         <TextView
-            android:id="@+id/item_chat_right_time"
+            android:id="@+id/item_chat_left_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="12:24"
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/item_chat_right_chek" />
+            app:layout_constraintEnd_toStartOf="@id/item_chat_left_check"
+            app:layout_constraintStart_toEndOf="@+id/item_chat_left_text"
+            tools:text="12:24" />
 
         <ImageView
-            android:id="@+id/item_chat_right_chek"
+            android:id="@+id/item_chat_left_check"
             android:layout_width="15dp"
             android:layout_height="15dp"
-            android:paddingBottom="2dp"
+            android:layout_marginBottom="2dp"
             android:src="@drawable/ic_checked"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintBottom_toBottomOf="@id/item_chat_left_time"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/item_chat_left_time" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.google.firebase.database.ServerValue
 import com.pashssh.messenger.databinding.FragmentChatsBinding
+import com.pashssh.messenger.utils.AppValueEventListener
 
 class ChatsFragment : Fragment() {
 
@@ -23,11 +24,12 @@ class ChatsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+
         _binding = FragmentChatsBinding.inflate(inflater, container, false)
         chatsViewModel = ViewModelProvider(this).get(ChatsViewModel::class.java)
 
         binding.write.setOnClickListener {
-            REF_DATABASE.child("123").child("k2").setValue("v2")
         }
 
         binding.logout.setOnClickListener {

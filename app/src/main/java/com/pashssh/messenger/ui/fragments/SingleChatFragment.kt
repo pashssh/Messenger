@@ -57,7 +57,7 @@ class SingleChatFragment : Fragment() {
         val refDialogUser = "$MESSAGE_CHILD/$CURRENT_UID/$receivingUserId"
         val refDialogReceivingUser = "$MESSAGE_CHILD/$receivingUserId/$CURRENT_UID"
         val messageKey = REF_DATABASE.child(refDialogUser).push().key
-        val message = MessageEntityToDatabase(
+        val message = MessageEntity(
             CURRENT_UID,
             textMessage,
             ServerValue.TIMESTAMP,
