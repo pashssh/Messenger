@@ -30,6 +30,10 @@ class ChatsFragment : Fragment() {
         chatsViewModel = ViewModelProvider(this).get(ChatsViewModel::class.java)
 
         binding.write.setOnClickListener {
+            REF_DATABASE.child(USERS_CHILD).child(CURRENT_UID)
+                .addValueEventListener(AppValueEventListener {
+                Log.d("MYTAG2", it.getValue(UserEntity::class.java).toString())
+                })
         }
 
         binding.logout.setOnClickListener {

@@ -21,6 +21,7 @@ import com.google.firebase.auth.PhoneAuthProvider
 import com.pashssh.messenger.*
 import com.pashssh.messenger.databinding.FragmentEnterCodeBinding
 import com.pashssh.messenger.ui.activities.RegistrationActivity
+import com.pashssh.messenger.utils.AppValueEventListener
 import java.util.concurrent.TimeUnit
 
 class EnterCodeFragment() : Fragment() {
@@ -40,9 +41,7 @@ class EnterCodeFragment() : Fragment() {
 
         mCallback = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
             override fun onVerificationCompleted(credential: PhoneAuthCredential) {
-//                AUTH.signInWithCredential(credential).addOnCompleteListener {
                 signInWithPhoneAuthCredential(credential)
-//                }
             }
 
             override fun onVerificationFailed(p0: FirebaseException) {
@@ -124,24 +123,46 @@ class EnterCodeFragment() : Fragment() {
                 Log.d("MYTAG", "$task task")
                 val user = task.result?.user
                 if (user != null) {
-                    REF_DATABASE.child(PHONES_CHILD).child(user.phoneNumber!!).setValue(user.uid)
-                        .addOnFailureListener {
-                            Toast.makeText(
-                                requireContext(), it.message.toString(), Toast.LENGTH_SHORT
-                            ).show()
-                        }
-                        .addOnSuccessListener {
-                            REF_DATABASE.child(USERS_CHILD).child(user.uid).setValue(user.toUser())
-                                .addOnFailureListener {
-                                    Toast.makeText(
-                                        requireContext(), it.message.toString(), Toast.LENGTH_SHORT
-                                    ).show()
+                    val ref_user = REF_DATABASE.child(PHONES_CHILD)
+                        .addListenerForSingleValueEvent(AppValueEventListener { snapshot ->
+                            var isContain = false
+                            snapshot.children.forEach { snapshot1 ->
+                                if (snapshot1.key == user.phoneNumber) {
+                                    isContain = true
                                 }
-                                .addOnSuccessListener {
-                                    this.findNavController()
-                                        .navigate(R.id.action_enterCodeFragment_to_mainActivity)
-                                }
-                        }
+                            }
+                            if (!isContain) {
+                                REF_DATABASE.child(PHONES_CHILD).child(user.phoneNumber!!)
+                                    .setValue(user.uid)
+                                    .addOnFailureListener {
+                                        Toast.makeText(
+                                            requireContext(),
+                                            it.message.toString(),
+                                            Toast.LENGTH_SHORT
+                                        ).show()
+                                    }
+                                    .addOnSuccessListener {
+                                        REF_DATABASE.child(USERS_CHILD).child(user.uid)
+                                            .setValue(user.toUser())
+                                            .addOnFailureListener {
+                                                Toast.makeText(
+                                                    requireContext(),
+                                                    it.message.toString(),
+                                                    Toast.LENGTH_SHORT
+                                                ).show()
+                                            }
+                                            .addOnSuccessListener {
+                                                this.findNavController()
+                                                    .navigate(R.id.action_enterCodeFragment_to_mainActivity)
+                                            }
+                                    }
+                            } else {
+                                this.findNavController()
+                                    .navigate(R.id.action_enterCodeFragment_to_mainActivity)
+                            }
+                        })
+
+
                 }
             } else {
                 Log.d("MYTAG", task.exception.toString() + " exep")

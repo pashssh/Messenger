@@ -28,7 +28,7 @@ class SingleChatAdapter() :
             if (binding is ItemChatRightBinding) {
                 binding.itemChatRightText.text = item.textMessage
                 binding.itemChatRightTime.text = item.timeStamp.toString().asTime()
-                binding.itemChatRightChek.setImageResource(item.status.isChecked())
+                binding.itemChatRightCheck.setImageResource(item.status.isChecked())
             } else if (binding is ItemChatLeftBinding) {
                 binding.itemChatLeftText.text = item.textMessage
                 binding.itemChatLeftTime.text = item.timeStamp.toString().asTime()
