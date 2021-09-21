@@ -1,7 +1,9 @@
 package com.pashssh.messenger.utils
 
 import android.content.Intent
+import android.content.res.Resources
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.pashssh.messenger.R
 import java.text.SimpleDateFormat
@@ -34,4 +36,12 @@ fun String.asTime(): String {
 
 fun Boolean.isChecked(): Int {
     return if (this) R.drawable.ic_checked_all else R.drawable.ic_checked
+}
+
+fun Boolean.isOnline(fragment: Fragment): String {
+    return if (this) {
+        fragment.getString(R.string.status_online)
+    } else {
+        fragment.getString(R.string.status_offline)
+    }
 }

@@ -1,7 +1,7 @@
 package com.pashssh.messenger
 
 
-data class MessageEntity(
+data class TextMessageEntity(
     val from: String = "",
     val textMessage: String = "",
     val timeStamp: Any = 0,

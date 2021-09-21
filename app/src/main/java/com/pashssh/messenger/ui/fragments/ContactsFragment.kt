@@ -19,7 +19,6 @@ import com.pashssh.messenger.databinding.FragmentContactsBinding
 import com.pashssh.messenger.utils.AppValueEventListener
 import com.pashssh.messenger.utils.READ_CONTACTS
 import com.pashssh.messenger.utils.checkAndRequestPermission
-import org.w3c.dom.Text
 
 
 class ContactsFragment : Fragment() {
@@ -36,7 +35,7 @@ class ContactsFragment : Fragment() {
     private lateinit var mRefContacts: DatabaseReference
     private lateinit var mRefUsers: DatabaseReference
     private lateinit var mEventListener: AppValueEventListener
-    private var mapListener = hashMapOf<DatabaseReference, AppValueEventListener>()
+    private var mapListeners = hashMapOf<DatabaseReference, AppValueEventListener>()
 
     private val binding get() = _binding!!
 
@@ -82,26 +81,27 @@ class ContactsFragment : Fragment() {
                 mRefUsers = REF_DATABASE.child(USERS_CHILD).child(model.uid)
 
                 mEventListener = AppValueEventListener {
-                    val modelIt = it.getValue(UserEntity::class.java)
-                    holder.name.text = modelIt?.username.toString()
-                    holder.status.text = modelIt?.state.toString()
+                    val entity = it.getValue(UserEntity::class.java)
+                    if (entity != null) {
+                        holder.name.text = entity.username
+                    } else {
+                        holder.name.text = model.fullName
+                    }
+                    holder.status.text = entity?.state.toString()
                     holder.itemView.setOnClickListener {
-                        if (modelIt != null) {
+                        if (entity != null) {
                             requireView().findNavController().navigate(
                                 ContactsFragmentDirections.actionContactsToSingleChat(
-                                    modelIt.uid
+                                    entity.uid
                                 )
                             )
                         }
                     }
                 }
-
                 mRefUsers.addValueEventListener(mEventListener)
-                mapListener[mRefUsers] = mEventListener
-
+                mapListeners[mRefUsers] = mEventListener
             }
         }
-
         mRecyclerView.adapter = mAdapter
         mAdapter.startListening()
     }
@@ -109,7 +109,7 @@ class ContactsFragment : Fragment() {
     override fun onPause() {
         super.onPause()
         mAdapter.stopListening()
-        mapListener.forEach {
+        mapListeners.forEach {
             it.key.removeEventListener(it.value)
         }
     }
@@ -158,7 +158,6 @@ class ContactsFragment : Fragment() {
 
                                     )
                                 )
-
                         }
                     }
                 }

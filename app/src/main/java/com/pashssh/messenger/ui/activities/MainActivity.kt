@@ -9,10 +9,9 @@ import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
-import com.pashssh.messenger.AUTH
-import com.pashssh.messenger.R
+import com.pashssh.messenger.*
 import com.pashssh.messenger.databinding.ActivityMainBinding
-import com.pashssh.messenger.initFirebase
+import com.pashssh.messenger.utils.AppValueEventListener
 import com.pashssh.messenger.utils.replaceActivity
 
 
@@ -28,7 +27,6 @@ class MainActivity : AppCompatActivity() {
         mToolbar = binding.appBarMain.toolbar
         setSupportActionBar(mToolbar)
 
-
         val navController = this.findNavController(R.id.nav_host_fragment)
         NavigationUI.setupActionBarWithNavController(this, navController, drawerLayout)
         NavigationUI.setupWithNavController(binding.navView, navController)
@@ -39,6 +37,16 @@ class MainActivity : AppCompatActivity() {
         if (AUTH.currentUser == null) {
             replaceActivity(RegistrationActivity())
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        REF_DATABASE.child(USERS_CHILD).child(CURRENT_UID).child("state").setValue(true)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        REF_DATABASE.child(USERS_CHILD).child(CURRENT_UID).child("state").setValue(false)
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -52,7 +60,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId) {
+        when (item.itemId) {
             R.id.logout -> {
                 AUTH.signOut()
                 this.recreate()
