@@ -21,11 +21,12 @@
             android:id="@+id/item_chat_right_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
+            android:textSize="@dimen/text_message_size"
             tools:text="Text" />
 
         <LinearLayout
             android:layout_gravity="end"
+            android:padding="2dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
@@ -34,13 +35,14 @@
                 android:id="@+id/item_chat_right_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="10sp"
+                android:textSize="@dimen/text_time_size"
                 tools:text="12:23" />
 
             <ImageView
                 android:id="@+id/item_chat_right_check"
-                android:layout_width="12dp"
-                android:layout_height="12dp"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_marginStart="5dp"
                 android:layout_gravity="center"
                 android:src="@drawable/ic_checked" />
 

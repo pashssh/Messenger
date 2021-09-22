@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="app_header2">20sp</dimen>
+    <dimen name="text_message_size">20sp</dimen>
+    <dimen name="text_time_size">12sp</dimen>
 </resources>

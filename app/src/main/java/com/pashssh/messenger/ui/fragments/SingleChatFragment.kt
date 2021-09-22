@@ -132,6 +132,7 @@ class SingleChatFragment : Fragment() {
             }
             Log.d("MYTAG", mListTextMessages.toString())
             mAdapter.setList(mListTextMessages)
+            mRecyclerView.scrollToPosition(mListTextMessages.count())
         }
         mRefMessage.addValueEventListener(mMessageListener)
         mapListeners[mRefMessage] = mMessageListener
