@@ -1,4 +1,4 @@
-package com.pashssh.messenger
+package com.pashssh.messenger.ui.fragments
 
 import android.os.Bundle
 import android.util.Log
@@ -6,7 +6,7 @@ import android.view.*
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.google.firebase.database.ServerValue
+import com.pashssh.messenger.*
 import com.pashssh.messenger.databinding.FragmentChatsBinding
 import com.pashssh.messenger.utils.AppValueEventListener
 

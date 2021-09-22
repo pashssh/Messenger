@@ -9,11 +9,13 @@
         android:id="@+id/single_chat_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:padding="4dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toTopOf="@+id/input_text_layout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:stackFromEnd="true"
         tools:listitem="@layout/item_chat_right" />
 
     <LinearLayout
