@@ -17,6 +17,8 @@ const val CONTACTS_CHILD = "contacts"
 const val MESSAGE_CHILD = "message"
 const val CHATS_CHILD = "chats"
 
+const val MESSAGE_MAIN = "main_list"
+
 
 fun initFirebase() {
     AUTH = Firebase.auth

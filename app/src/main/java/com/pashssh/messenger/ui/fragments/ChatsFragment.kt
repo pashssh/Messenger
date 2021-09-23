@@ -2,12 +2,12 @@ package com.pashssh.messenger.ui.fragments
 
 import android.os.Bundle
 import android.util.Log
-import android.view.*
-import android.widget.Toast
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
-import com.firebase.ui.database.FirebaseRecyclerAdapter
 import com.google.firebase.database.DatabaseReference
 import com.pashssh.messenger.*
 import com.pashssh.messenger.databinding.FragmentChatsBinding
@@ -15,8 +15,10 @@ import com.pashssh.messenger.utils.AppValueEventListener
 
 class ChatsFragment : Fragment() {
 
+
     private lateinit var mRecyclerView: RecyclerView
-    private lateinit var mAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>
+    private lateinit var mAdapter: ChatsAdapter
+    private val mListChats: MutableList<ItemChats> = mutableListOf()
 
     private lateinit var mRefChats: DatabaseReference
     private lateinit var mRefReceivingUser: DatabaseReference
@@ -48,12 +50,31 @@ class ChatsFragment : Fragment() {
     }
 
     private fun initRecyclerView() {
+        mRecyclerView = binding.chatsRecyclerView
+        mAdapter = ChatsAdapter()
+        mRecyclerView.adapter = mAdapter
         mRefChats = REF_DATABASE.child(MESSAGE_CHILD).child(CURRENT_UID)
-        mChatsListener = AppValueEventListener { users ->
-            users.children.forEach { user ->
-                Log.d("TAGG", " " + user.key)
-                Log.d("TAGG", " " + user.children.last())
-
+        mChatsListener = AppValueEventListener { uids ->
+            val list = mutableListOf<ItemChats>()
+            uids.children.forEach { uid ->
+                val lastMessage = uid.children.last().getValue(TextMessageEntity::class.java)
+                if (lastMessage != null) {
+                    REF_DATABASE.child(USERS_CHILD).child(uid.key.toString())
+                        .addListenerForSingleValueEvent(AppValueEventListener {
+                            val user = it.getValue(UserEntity::class.java)
+                            if (user != null) {
+                                val newItem =
+                                    ItemChats(
+                                        uid.key.toString(),
+                                        lastMessage.textMessage,
+                                        lastMessage.timeStamp.toString(),
+                                        user.username,
+                                        user.photoUrl
+                                    )
+                                mAdapter.insertItem(newItem)
+                            }
+                        })
+                }
             }
         }
         mRefChats.addValueEventListener(mChatsListener)

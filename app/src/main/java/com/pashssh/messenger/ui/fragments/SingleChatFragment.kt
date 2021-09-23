@@ -76,6 +76,10 @@ class SingleChatFragment : Fragment() {
             .addOnFailureListener {
                 Toast.makeText(this.context, it.message.toString(), Toast.LENGTH_SHORT).show()
             }
+
+        val refLastMessage = "$MESSAGE_MAIN/$CURRENT_UID/$receivingUserId"
+        val refLastMessageReceiving = "$MESSAGE_MAIN/$receivingUserId/$CURRENT_UID"
+
     }
 
     override fun onResume() {

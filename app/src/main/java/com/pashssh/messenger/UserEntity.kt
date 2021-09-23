@@ -7,7 +7,8 @@ data class UserEntity (
     val username: String = "",
     val email: String = "",
     val phone: String = "",
-    val state: Boolean = false
+    val state: Boolean = false,
+    val photoUrl: String = ""
 )
 
 
