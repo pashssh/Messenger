@@ -71,7 +71,7 @@ class ChatsFragment : Fragment() {
                                         user.username,
                                         user.photoUrl
                                     )
-                                mAdapter.insertItem(newItem)
+                                mAdapter.insertOrUpdateItem(newItem)
                             }
                         })
                 }
