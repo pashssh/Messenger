@@ -14,9 +14,9 @@ class ChatsAdapter() : RecyclerView.Adapter<ChatsAdapter.ChatsViewHolder>() {
     fun insertOrUpdateItem(item: ItemChats) {
         if (listItemChats.isNotEmpty()) {
             var index = -1
-            listItemChats.forEach { itemChats ->
+            listItemChats.forEachIndexed { i, itemChats ->
                 if (itemChats.uid == item.uid) {
-                    index = listItemChats.indexOf(itemChats)
+                    index = i
                 }
             }
             if (index != -1) {
