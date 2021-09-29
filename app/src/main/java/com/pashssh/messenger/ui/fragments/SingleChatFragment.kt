@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -13,13 +14,15 @@ import com.google.firebase.database.ServerValue
 import com.pashssh.messenger.*
 import com.pashssh.messenger.databinding.FragmentSingleChatBinding
 import com.pashssh.messenger.ui.activities.MainActivity
-import com.pashssh.messenger.utils.AppValueEventListener
-import com.pashssh.messenger.utils.isOnline
+import com.pashssh.messenger.utils.*
+import com.squareup.picasso.Picasso
 
 class SingleChatFragment : Fragment() {
 
     private lateinit var toolbarName: TextView
     private lateinit var toolbarStatus: TextView
+    private lateinit var toolbarPhoto: ImageView
+
     private lateinit var receivingUID: String
 
     private lateinit var mRefMessage: DatabaseReference
@@ -76,10 +79,6 @@ class SingleChatFragment : Fragment() {
             .addOnFailureListener {
                 Toast.makeText(this.context, it.message.toString(), Toast.LENGTH_SHORT).show()
             }
-
-        val refLastMessage = "$MESSAGE_MAIN/$CURRENT_UID/$receivingUserId"
-        val refLastMessageReceiving = "$MESSAGE_MAIN/$receivingUserId/$CURRENT_UID"
-
     }
 
     override fun onResume() {
@@ -108,6 +107,7 @@ class SingleChatFragment : Fragment() {
         toolbarName = requireActivity().findViewById(R.id.toolbar_name)
         toolbarName = requireActivity().findViewById(R.id.toolbar_name)
         toolbarStatus = requireActivity().findViewById(R.id.toolbar_status)
+        toolbarPhoto = requireActivity().findViewById(R.id.toolbar_photo_user)
 
         mRefReceivingUser = REF_DATABASE.child(USERS_CHILD).child(receivingUID)
         mListenerInfoToolbar = AppValueEventListener {
@@ -115,6 +115,10 @@ class SingleChatFragment : Fragment() {
             if (receivingUser != null) {
                 toolbarName.text = receivingUser.username
                 toolbarStatus.text = receivingUser.state.isOnline(this)
+                Picasso.get()
+                    .load(receivingUser.photoUrl)
+                    .placeholder(R.drawable.ic_contact_placeholder)
+                    .into(toolbarPhoto)
             }
         }
         mRefReceivingUser.addValueEventListener(mListenerInfoToolbar)

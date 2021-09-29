@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.pashssh.messenger.databinding.ItemChatsBinding
 import com.pashssh.messenger.utils.asTime
+import com.squareup.picasso.Picasso
 
 class ChatsAdapter() : RecyclerView.Adapter<ChatsAdapter.ChatsViewHolder>() {
 
@@ -40,6 +41,10 @@ class ChatsAdapter() : RecyclerView.Adapter<ChatsAdapter.ChatsViewHolder>() {
             binding.itemChatsMessage.text = item.textMessage
             binding.itemChatsMessageTime.text = item.timeMessage.asTime()
             binding.itemChatsName.text = item.username
+            Picasso.get()
+                .load(item.photoUrl)
+                .placeholder(R.drawable.ic_contact_placeholder)
+                .into(binding.itemChatsImage)
         }
     }
 

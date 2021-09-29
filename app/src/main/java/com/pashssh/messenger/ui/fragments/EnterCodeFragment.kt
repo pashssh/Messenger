@@ -11,7 +11,6 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.FirebaseException
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
@@ -21,7 +20,7 @@ import com.google.firebase.auth.PhoneAuthProvider
 import com.pashssh.messenger.*
 import com.pashssh.messenger.databinding.FragmentEnterCodeBinding
 import com.pashssh.messenger.ui.activities.RegistrationActivity
-import com.pashssh.messenger.utils.AppValueEventListener
+import com.pashssh.messenger.utils.*
 import java.util.concurrent.TimeUnit
 
 class EnterCodeFragment() : Fragment() {
@@ -123,7 +122,7 @@ class EnterCodeFragment() : Fragment() {
                 Log.d("MYTAG", "$task task")
                 val user = task.result?.user
                 if (user != null) {
-                    val ref_user = REF_DATABASE.child(PHONES_CHILD)
+                    REF_DATABASE.child(PHONES_CHILD)
                         .addListenerForSingleValueEvent(AppValueEventListener { snapshot ->
                             var isContain = false
                             snapshot.children.forEach { snapshot1 ->

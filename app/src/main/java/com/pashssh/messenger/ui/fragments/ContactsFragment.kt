@@ -16,9 +16,8 @@ import com.firebase.ui.database.FirebaseRecyclerOptions
 import com.google.firebase.database.DatabaseReference
 import com.pashssh.messenger.*
 import com.pashssh.messenger.databinding.FragmentContactsBinding
-import com.pashssh.messenger.utils.AppValueEventListener
-import com.pashssh.messenger.utils.READ_CONTACTS
-import com.pashssh.messenger.utils.checkAndRequestPermission
+import com.pashssh.messenger.utils.*
+import com.squareup.picasso.Picasso
 
 
 class ContactsFragment : Fragment() {
@@ -87,7 +86,14 @@ class ContactsFragment : Fragment() {
                     } else {
                         holder.name.text = model.fullName
                     }
+
                     holder.status.text = entity?.state.toString()
+                    if (entity?.photoUrl != "") {
+                        Picasso.get()
+                            .load(entity?.photoUrl)
+                            .placeholder(R.drawable.ic_contact_placeholder)
+                            .into(holder.photo)
+                    }
                     holder.itemView.setOnClickListener {
                         if (entity != null) {
                             requireView().findNavController().navigate(
@@ -155,7 +161,6 @@ class ContactsFragment : Fragment() {
                                         contact.fullName,
                                         contact.phone,
                                         snapshot.value.toString()
-
                                     )
                                 )
                         }

@@ -1,7 +1,6 @@
 package com.pashssh.messenger.ui.fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.DatabaseReference
 import com.pashssh.messenger.*
 import com.pashssh.messenger.databinding.FragmentChatsBinding
-import com.pashssh.messenger.utils.AppValueEventListener
+import com.pashssh.messenger.utils.*
 
 class ChatsFragment : Fragment() {
 
@@ -55,7 +54,6 @@ class ChatsFragment : Fragment() {
         mRecyclerView.adapter = mAdapter
         mRefChats = REF_DATABASE.child(MESSAGE_CHILD).child(CURRENT_UID)
         mChatsListener = AppValueEventListener { uids ->
-            val list = mutableListOf<ItemChats>()
             uids.children.forEach { uid ->
                 val lastMessage = uid.children.last().getValue(TextMessageEntity::class.java)
                 if (lastMessage != null) {

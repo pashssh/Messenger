@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
 import com.pashssh.messenger.databinding.ItemChatLeftBinding
 import com.pashssh.messenger.databinding.ItemChatRightBinding
+import com.pashssh.messenger.utils.CURRENT_UID
 import com.pashssh.messenger.utils.asTime
 import com.pashssh.messenger.utils.isChecked
 

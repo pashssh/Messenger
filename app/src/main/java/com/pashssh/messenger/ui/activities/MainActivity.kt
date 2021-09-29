@@ -3,6 +3,7 @@ package com.pashssh.messenger.ui.activities
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
@@ -11,8 +12,8 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.pashssh.messenger.*
 import com.pashssh.messenger.databinding.ActivityMainBinding
-import com.pashssh.messenger.utils.AppValueEventListener
-import com.pashssh.messenger.utils.replaceActivity
+import com.pashssh.messenger.utils.*
+import com.squareup.picasso.Picasso
 
 
 class MainActivity : AppCompatActivity() {
@@ -26,6 +27,13 @@ class MainActivity : AppCompatActivity() {
         drawerLayout = binding.drawerLayout
         mToolbar = binding.appBarMain.toolbar
         setSupportActionBar(mToolbar)
+
+        val header = binding.navView.getHeaderView(0).findViewById<ImageView>(R.id.nav_header_image)
+        Picasso.get()
+            .load("https://cs12.pikabu.ru/post_img/2021/09/28/9/1632842735144728919.webp")
+            .placeholder(R.drawable.ic_contact_placeholder)
+            .into(header)
+
 
         val navController = this.findNavController(R.id.nav_host_fragment)
         NavigationUI.setupActionBarWithNavController(this, navController, drawerLayout)
