@@ -6,13 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.DatabaseReference
 import com.pashssh.messenger.*
 import com.pashssh.messenger.databinding.FragmentChatsBinding
 import com.pashssh.messenger.utils.*
 
-class ChatsFragment : Fragment() {
+class ChatsFragment : Fragment(), OnClickList {
 
 
     private lateinit var mRecyclerView: RecyclerView
@@ -50,7 +51,7 @@ class ChatsFragment : Fragment() {
 
     private fun initRecyclerView() {
         mRecyclerView = binding.chatsRecyclerView
-        mAdapter = ChatsAdapter()
+        mAdapter = ChatsAdapter(this)
         mRecyclerView.adapter = mAdapter
         mRefChats = REF_DATABASE.child(MESSAGE_CHILD).child(CURRENT_UID)
         mChatsListener = AppValueEventListener { uids ->
@@ -81,6 +82,14 @@ class ChatsFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    override fun onClick(uid: String) {
+        requireView().findNavController().navigate(
+            ChatsFragmentDirections.actionChatsFragmentToSingleChatFragment(
+                uid
+            )
+        )
     }
 
 //    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

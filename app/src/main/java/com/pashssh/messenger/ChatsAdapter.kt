@@ -1,6 +1,5 @@
 package com.pashssh.messenger
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -8,7 +7,7 @@ import com.pashssh.messenger.databinding.ItemChatsBinding
 import com.pashssh.messenger.utils.asTime
 import com.squareup.picasso.Picasso
 
-class ChatsAdapter() : RecyclerView.Adapter<ChatsAdapter.ChatsViewHolder>() {
+class ChatsAdapter(private val onClickList: OnClickList) : RecyclerView.Adapter<ChatsAdapter.ChatsViewHolder>() {
 
     private var listItemChats = mutableListOf<ItemChats>()
 
@@ -59,8 +58,15 @@ class ChatsAdapter() : RecyclerView.Adapter<ChatsAdapter.ChatsViewHolder>() {
     override fun onBindViewHolder(holder: ChatsViewHolder, position: Int) {
         val item = listItemChats[position]
         holder.bind(item)
+        holder.itemView.setOnClickListener{
+            onClickList.onClick(item.uid)
+        }
     }
 
     override fun getItemCount(): Int = listItemChats.size
 
+}
+
+interface OnClickList {
+    fun onClick(uid: String)
 }
