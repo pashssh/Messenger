@@ -5,8 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <ImageView
+    <androidx.constraintlayout.utils.widget.ImageFilterView
         android:id="@+id/item_contact_photo"
+        app:roundPercent="1"
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:layout_marginStart="16dp"

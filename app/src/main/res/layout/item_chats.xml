@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <ImageView
+    <androidx.constraintlayout.utils.widget.ImageFilterView
         android:id="@+id/item_chats_image"
         android:layout_width="70dp"
         android:layout_height="70dp"
@@ -15,7 +15,8 @@
         android:src="@drawable/ic_contact_placeholder"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:roundPercent="1" />
 
     <TextView
         android:id="@+id/item_chats_name"
