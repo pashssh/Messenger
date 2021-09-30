@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.ImageView
+import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
@@ -17,22 +19,20 @@ import com.squareup.picasso.Picasso
 
 
 class MainActivity : AppCompatActivity() {
-    lateinit var drawerLayout: DrawerLayout
-    lateinit var mToolbar: Toolbar
+    private lateinit var drawerLayout: DrawerLayout
+    private lateinit var mToolbar: Toolbar
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding =
-            DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
+        binding =
+            DataBindingUtil.setContentView(this, R.layout.activity_main)
         drawerLayout = binding.drawerLayout
         mToolbar = binding.appBarMain.toolbar
         setSupportActionBar(mToolbar)
+        initFirebase()
 
-        val header = binding.navView.getHeaderView(0).findViewById<ImageView>(R.id.nav_header_image)
-        Picasso.get()
-            .load("https://cs12.pikabu.ru/post_img/2021/09/28/9/1632842735144728919.webp")
-            .placeholder(R.drawable.ic_contact_placeholder)
-            .into(header)
+        initNavBar()
 
 
         val navController = this.findNavController(R.id.nav_host_fragment)
@@ -40,11 +40,31 @@ class MainActivity : AppCompatActivity() {
         NavigationUI.setupWithNavController(binding.navView, navController)
 
 
-        initFirebase()
+
 
         if (AUTH.currentUser == null) {
             replaceActivity(RegistrationActivity())
         }
+    }
+
+    private fun initNavBar() {
+        val headerImage =
+            binding.navView.getHeaderView(0).findViewById<ImageView>(R.id.nav_header_image)
+        val headerName =
+            binding.navView.getHeaderView(0).findViewById<TextView>(R.id.nav_header_name)
+        val headerPhone =
+            binding.navView.getHeaderView(0).findViewById<TextView>(R.id.nav_header_phone)
+        REF_DATABASE.child(USERS_CHILD).child(CURRENT_UID)
+            .addListenerForSingleValueEvent(AppValueEventListener { snapshot ->
+                val user = snapshot.getValue(UserEntity::class.java)
+                user?.let { entity ->
+                    if (entity.photoUrl.isNotEmpty()) {
+                        Picasso.get().load(entity.photoUrl).into(headerImage)
+                    }
+                    headerName.text = entity.username
+                    headerPhone.text = entity.phone
+                }
+            })
     }
 
     override fun onResume() {
