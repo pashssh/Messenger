@@ -36,4 +36,19 @@
             android:name="targetUID"
             app:argType="string" />
     </fragment>
+    <fragment
+        android:id="@+id/preferenceFragment"
+        android:name="com.pashssh.messenger.ui.fragments.PreferenceFragment"
+        android:label="PreferenceFragment" >
+        <action
+            android:id="@+id/action_preferenceFragment_to_preferenceFragment2"
+            app:destination="@id/preferenceFragment2" />
+        <action
+            android:id="@+id/action_preferenceFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/preferenceFragment2"
+        android:name="com.pashssh.messenger.ui.fragments.PreferenceFragment2"
+        android:label="PreferenceFragment2" />
 </navigation>
