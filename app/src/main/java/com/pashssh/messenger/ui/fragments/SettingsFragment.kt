@@ -24,6 +24,7 @@ class SettingsFragment: Fragment() {
         _binding = FragmentSettingsBinding.inflate(inflater, container, false)
 
 
+
         return binding.root
     }
 
@@ -32,20 +33,4 @@ class SettingsFragment: Fragment() {
         super.onDestroy()
         _binding = null
     }
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.complete_menu, menu)
-        super.onCreateOptionsMenu(menu, inflater)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.ok -> {
-                Toast.makeText(context, "test", Toast.LENGTH_SHORT).show()
-                return true
-            }
-        }
-        return super.onOptionsItemSelected(item)
-    }
-
 }
