@@ -38,7 +38,7 @@
     </fragment>
     <fragment
         android:id="@+id/preferenceFragment"
-        android:name="com.pashssh.messenger.ui.fragments.PreferenceFragment"
+        android:name="com.pashssh.messenger.ui.fragments.MainPreferenceFragment"
         android:label="PreferenceFragment" >
         <action
             android:id="@+id/action_preferenceFragment_to_preferenceFragment2"

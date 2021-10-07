@@ -12,4 +12,8 @@
     <string name="hint_message">Сообщение</string>
     <string name="status_online">В сети</string>
     <string name="status_offline">Не в сети</string>
+    <string name="nickname">Не задано</string>
+    <string name="about_me">О себе</string>
+    <string name="hint_about_me">Напишите немного о себе</string>
+    <string name="hint_nickname">Имя пользователя</string>
 </resources>

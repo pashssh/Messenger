@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <Preference
+        android:key="profile_image_layout"
+        android:layout="@layout/preferences_header"
+        android:title="prefScreen2" />
+
+    <Preference
+        android:key="nickname"
+        android:summary="@string/hint_nickname"
+        tools:title="@string/nickname"
+        app:allowDividerAbove="true"
+        app:allowDividerBelow="true"
+        app:iconSpaceReserved="false" />
+
+    <EditTextPreference
+        android:key="about"
+        android:summary="@string/hint_about_me"
+        tools:title="@string/about_me"
+        app:allowDividerAbove="true"
+        app:allowDividerBelow="true"
+        app:iconSpaceReserved="false" />
+
+</PreferenceScreen>
